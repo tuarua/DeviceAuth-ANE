@@ -1,6 +1,7 @@
 # DeviceAuth-ANE
 
 Perform local, on-device authentication of the user with this Adobe Air Native Extension for iOS 9.0+ and Android 21+.   
+
 Offers Fingerprint on iOS/Android and FaceID on iOS.
 
 -------------

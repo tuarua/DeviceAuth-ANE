@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="DeviceAuthANE" type="flex">
+    <CLASSES>
+      <root url="jar://$DOCUMENTS$/DeviceAuth-ANE/native_extension/ane/DeviceAuthANE.ane!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

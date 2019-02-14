@@ -55,7 +55,7 @@ bash get_ios_dependencies.sh
 This folder, ios_dependencies/device/Frameworks, must be packaged as part of your app when creating the ipa. How this is done will depend on the IDE you are using.
 After the ipa is created unzip it and confirm there is a "Frameworks" folder in the root of the .app package.   
 
-### Modifications to AIR SDK (SKIP if using >= 32.0.0.103)
+### Modifications to AIR SDK (Skip if using >= 32.0.0.103)
 
 We need to patch some files in AIR SDK. 
 

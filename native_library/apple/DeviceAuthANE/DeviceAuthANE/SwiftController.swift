@@ -80,8 +80,8 @@ public class SwiftController: NSObject {
         let lactx = LAContext()
         var authError: NSError?
         if lactx.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
-            lactx.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
-                success, evaluateError in
+            lactx.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
+                                 localizedReason: reason) { success, evaluateError in
                 if success {
                     self.dispatchEvent(name: DeviceAuthEvent.success,
                                        value: DeviceAuthEvent(eventId: eventId).toJSONString())
@@ -156,13 +156,13 @@ public class SwiftController: NSObject {
     
     private func alertMessage(message: String, firstButton: String, eventId: String, secondButton: String? = nil) {
         let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: firstButton, style: .default) { action in
+        let defaultAction = UIAlertAction(title: firstButton, style: .default) { _ in
             self.dispatchEvent(name: DeviceAuthEvent.fail,
                                value: DeviceAuthEvent(eventId: eventId).toJSONString())
         }
         alert.addAction(defaultAction)
         if let secondButton = secondButton {
-            let secondAction = UIAlertAction(title: secondButton, style: .default) { action in
+            let secondAction = UIAlertAction(title: secondButton, style: .default) { _ in
                 if let url = URL(string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.openURL(url)
                     self.dispatchEvent(name: DeviceAuthEvent.fail,

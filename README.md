@@ -11,7 +11,7 @@ Offers Fingerprint on iOS/Android and FaceID on iOS.
 #### The ANE + Dependencies
 
 cd into /example and run:
-- OSX (Terminal)
+- macOS (Terminal)
 ```shell
 bash get_android_dependencies.sh
 ```
@@ -70,8 +70,8 @@ If you wish to use FaceID you will also need to include the following in your ap
 You will need:
 
 - IntelliJ IDEA / Flash Builder
-- AIR 32.0.0.103 or greater
+- AIR 33 or greater
 - Xcode 10.1
-- wget on OSX
+- wget on macOS
 - Powershell on Windows
 - Android Studio 3 if you wish to edit the Android source

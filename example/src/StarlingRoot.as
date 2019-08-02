@@ -35,7 +35,7 @@ public class StarlingRoot extends Sprite {
 
     private function initMenu():void {
         authenticateBtn.y = 100;
-        authenticateBtn.addEventListener(TouchEvent.TOUCH, onDeleteTouch);
+        authenticateBtn.addEventListener(TouchEvent.TOUCH, onAuthenticateTouch);
         authenticateBtn.x = (stage.stageWidth - 200) / 2;
 
         var biometryType:int = deviceAuth.biometryType;
@@ -64,7 +64,7 @@ public class StarlingRoot extends Sprite {
         addChild(statusLabel);
     }
 
-    private function onDeleteTouch(event:TouchEvent):void {
+    private function onAuthenticateTouch(event:TouchEvent):void {
         event.stopPropagation();
         var touch:Touch = event.getTouch(authenticateBtn, TouchPhase.ENDED);
         if (touch && touch.phase == TouchPhase.ENDED) {

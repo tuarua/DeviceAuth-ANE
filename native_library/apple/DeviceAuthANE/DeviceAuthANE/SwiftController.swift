@@ -23,7 +23,7 @@ public class SwiftController: NSObject {
     public var functionsToSet: FREFunctionMap = [:]
     
     struct AuthenticateArgs {
-        var eventId: String
+        var callbackId: String
         var reason: String
         var useErrorDialogs: Bool
         var stickyAuth: Bool
@@ -62,7 +62,7 @@ public class SwiftController: NSObject {
     
     func authenticate(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         guard argc > 5,
-            let eventId = String(argv[0]),
+            let callbackId = String(argv[0]),
             let reason = String(argv[1]),
             let useErrorDialogs = Bool(argv[2]),
             let stickyAuth = Bool(argv[3]),
@@ -70,12 +70,12 @@ public class SwiftController: NSObject {
             else {
                 return FreArgError(message: "authenticate").getError(#file, #line, #column)
         }
-        authenticate(eventId: eventId, reason: reason, useErrorDialogs: useErrorDialogs,
+        authenticate(callbackId: callbackId, reason: reason, useErrorDialogs: useErrorDialogs,
                      stickyAuth: stickyAuth, messages: messages)
         return nil
     }
     
-    func authenticate(eventId: String, reason: String, useErrorDialogs: Bool, stickyAuth: Bool, messages: Messages) {
+    func authenticate(callbackId: String, reason: String, useErrorDialogs: Bool, stickyAuth: Bool, messages: Messages) {
         lastCallArgs = nil
         let lactx = LAContext()
         var authError: NSError?
@@ -84,7 +84,7 @@ public class SwiftController: NSObject {
                                  localizedReason: reason) { success, evaluateError in
                 if success {
                     self.dispatchEvent(name: DeviceAuthEvent.success,
-                                       value: DeviceAuthEvent(eventId: eventId).toJSONString())
+                                       value: DeviceAuthEvent(callbackId: callbackId).toJSONString())
                 } else {
                     switch evaluateError {
                     case LAError.passcodeNotSet?,
@@ -92,14 +92,14 @@ public class SwiftController: NSObject {
                          LAError.touchIDNotEnrolled?,
                          LAError.touchIDLockout?,
                          LAError.userFallback?:
-                        self.handleErrors(eventId: eventId,
+                        self.handleErrors(callbackId: callbackId,
                                           error: evaluateError,
                                           useErrorDialogs: useErrorDialogs,
                                           messages: messages)
                         return
                     case LAError.systemCancel?:
                         if stickyAuth {
-                            self.lastCallArgs = AuthenticateArgs(eventId: eventId,
+                            self.lastCallArgs = AuthenticateArgs(callbackId: callbackId,
                                                                  reason: reason,
                                                                  useErrorDialogs: useErrorDialogs,
                                                                  stickyAuth: stickyAuth,
@@ -109,17 +109,17 @@ public class SwiftController: NSObject {
                     default: break
                     }
                     self.dispatchEvent(name: DeviceAuthEvent.fail,
-                                       value: DeviceAuthEvent(eventId: eventId).toJSONString())
+                                       value: DeviceAuthEvent(callbackId: callbackId).toJSONString())
                 }
             }
         } else {
             if let err = authError {
-                handleErrors(eventId: eventId, error: err, useErrorDialogs: useErrorDialogs, messages: messages)
+                handleErrors(callbackId: callbackId, error: err, useErrorDialogs: useErrorDialogs, messages: messages)
             }
         }
     }
     
-    func handleErrors(eventId: String, error: Error?, useErrorDialogs: Bool, messages: Messages) {
+    func handleErrors(callbackId: String, error: Error?, useErrorDialogs: Bool, messages: Messages) {
         guard let error = error else { return }
         var errorCode = DeviceAuthError.notAvailable
         switch error {
@@ -128,12 +128,12 @@ public class SwiftController: NSObject {
             if useErrorDialogs {
                 alertMessage(message: messages.goToSettingDescription,
                              firstButton: messages.okButton,
-                             eventId: eventId,
+                             callbackId: callbackId,
                              secondButton: messages.goToSetting)
                 return
             }
         case LAError.touchIDLockout:
-            alertMessage(message: messages.lockOut, firstButton: messages.okButton, eventId: eventId)
+            alertMessage(message: messages.lockOut, firstButton: messages.okButton, callbackId: callbackId)
                 return
         default: break
         }
@@ -149,16 +149,16 @@ public class SwiftController: NSObject {
         }
         
         self.dispatchEvent(name: DeviceAuthEvent.fail,
-                           value: DeviceAuthEvent(eventId: eventId,
+                           value: DeviceAuthEvent(callbackId: callbackId,
                                                   error: DeviceAuthError(message: error.localizedDescription,
                                                                          id: errorCode)).toJSONString())
     }
     
-    private func alertMessage(message: String, firstButton: String, eventId: String, secondButton: String? = nil) {
+    private func alertMessage(message: String, firstButton: String, callbackId: String, secondButton: String? = nil) {
         let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: firstButton, style: .default) { _ in
             self.dispatchEvent(name: DeviceAuthEvent.fail,
-                               value: DeviceAuthEvent(eventId: eventId).toJSONString())
+                               value: DeviceAuthEvent(callbackId: callbackId).toJSONString())
         }
         alert.addAction(defaultAction)
         if let secondButton = secondButton {
@@ -166,7 +166,7 @@ public class SwiftController: NSObject {
                 if let url = URL(string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.openURL(url)
                     self.dispatchEvent(name: DeviceAuthEvent.fail,
-                                       value: DeviceAuthEvent(eventId: eventId).toJSONString())
+                                       value: DeviceAuthEvent(callbackId: callbackId).toJSONString())
                 }
             }
             alert.addAction(secondAction)
@@ -178,7 +178,7 @@ public class SwiftController: NSObject {
     
     @objc func applicationBecomeActive(_ notification: Notification) {
         if let lastCallArgs = lastCallArgs {
-            authenticate(eventId: lastCallArgs.eventId,
+            authenticate(callbackId: lastCallArgs.callbackId,
                          reason: lastCallArgs.reason,
                          useErrorDialogs: lastCallArgs.useErrorDialogs,
                          stickyAuth: lastCallArgs.stickyAuth,

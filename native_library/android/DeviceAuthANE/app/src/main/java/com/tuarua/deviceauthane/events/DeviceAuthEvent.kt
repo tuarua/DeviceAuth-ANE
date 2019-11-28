@@ -15,7 +15,7 @@
  */
 package com.tuarua.deviceauthane.events
 
-data class DeviceAuthEvent(val eventId: String?, val error: Map<String, Any>? = null) {
+data class DeviceAuthEvent(val callbackId: String?, val error: Map<String, Any>? = null) {
     companion object {
         const val SUCCESS = "DeviceAuthEvent.Success"
         const val FAIL = "DeviceAuthEvent.Fail"

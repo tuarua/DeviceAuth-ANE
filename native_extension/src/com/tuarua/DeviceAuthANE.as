@@ -60,7 +60,7 @@ public class DeviceAuthANE extends EventDispatcher {
      * your finger to access MyApp.'*/
     public function authenticate(reason:String, listener:Function):void {
         if (!safetyCheck()) return;
-        DeviceAuthANEContext.context.call("authenticate", DeviceAuthANEContext.createEventId(listener),
+        DeviceAuthANEContext.context.call("authenticate", DeviceAuthANEContext.createCallback(listener),
                 reason, _useErrorDialogs, _stickyAuth, _androidMessages, _iosMessages);
     }
 

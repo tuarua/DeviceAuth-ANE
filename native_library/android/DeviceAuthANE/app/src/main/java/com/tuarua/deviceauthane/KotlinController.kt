@@ -76,8 +76,8 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun authenticate(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size > 4 } ?: return FreArgException("authenticate")
-        val eventId = String(argv[0]) ?: return null
+        argv.takeIf { argv.size > 4 } ?: return FreArgException()
+        val callbackId = String(argv[0]) ?: return null
         val reason = String(argv[1]) ?: return null
         val useErrorDialogs = Boolean(argv[2]) ?: return null
         val stickyAuth = Boolean(argv[3]) ?: return null
@@ -96,21 +96,21 @@ class KotlinController : FreKotlinMainController {
                     override fun onSuccess() {
                         if (authInProgress.compareAndSet(true, false)) {
                             dispatchEvent(DeviceAuthEvent.SUCCESS,
-                                    gson.toJson(DeviceAuthEvent(eventId)))
+                                    gson.toJson(DeviceAuthEvent(callbackId)))
                         }
                     }
 
                     override fun onFailure() {
                         if (authInProgress.compareAndSet(true, false)) {
                             dispatchEvent(DeviceAuthEvent.FAIL,
-                                    gson.toJson(DeviceAuthEvent(eventId)))
+                                    gson.toJson(DeviceAuthEvent(callbackId)))
                         }
                     }
 
                     override fun onError(id: DeviceAuthError, message: String) {
                         if (authInProgress.compareAndSet(true, false)) {
                             dispatchEvent(DeviceAuthEvent.FAIL,
-                                    gson.toJson(DeviceAuthEvent(eventId, mapOf(
+                                    gson.toJson(DeviceAuthEvent(callbackId, mapOf(
                                             "message" to message,
                                             "id" to id.ordinal))))
                         }
@@ -120,7 +120,7 @@ class KotlinController : FreKotlinMainController {
         return null
     }
 
-    override val TAG: String
+    override val TAG: String?
         get() = this::class.java.simpleName
     private var _context: FREContext? = null
     override var context: FREContext?

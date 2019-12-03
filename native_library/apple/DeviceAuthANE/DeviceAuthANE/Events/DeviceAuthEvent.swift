@@ -15,6 +15,7 @@
  */
 
 import Foundation
+import SwiftyJSON
 
 class DeviceAuthEvent: NSObject {
     public static let success = "DeviceAuthEvent.Success"

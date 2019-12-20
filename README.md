@@ -24,7 +24,7 @@ PS get_android_dependencies.ps1
 <extensions>
 <extensionID>com.tuarua.frekotlin</extensionID>
 <extensionID>com.google.code.gson.gson</extensionID>
-<extensionID>com.android.support.support-v4</extensionID>
+<extensionID>androidx.legacy.legacy-support-v4</extensionID>
 <extensionID>com.tuarua.DeviceAuthANE</extensionID>
 ...
 </extensions>
@@ -75,8 +75,8 @@ You should use AIR 32 for iOS builds
 You will need:
 
 - IntelliJ IDEA / Flash Builder
-- AIR 32 or greater
-- Xcode 10.1
+- AIR 33 or greater
+- Xcode 11.2
 - wget on macOS
 - Powershell on Windows
 - Android Studio 3 if you wish to edit the Android source

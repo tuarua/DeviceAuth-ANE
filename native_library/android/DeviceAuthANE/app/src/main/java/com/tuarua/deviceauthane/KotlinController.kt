@@ -20,7 +20,7 @@ import android.content.pm.PackageManager
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
-import android.support.v4.hardware.fingerprint.FingerprintManagerCompat
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import com.google.gson.Gson
 import java.util.concurrent.atomic.AtomicBoolean
 import com.tuarua.deviceauthane.AuthenticationHelper.Companion.AuthCompletionHandler

@@ -7,7 +7,7 @@
     <extensions>
         <extensionID>com.tuarua.frekotlin</extensionID>
         <extensionID>com.google.code.gson.gson</extensionID>
-        <extensionID>com.android.support.support-v4</extensionID>
+        <extensionID>androidx.legacy.legacy-support-v4</extensionID>
         <extensionID>com.tuarua.DeviceAuthANE</extensionID>
     </extensions>
     <initialWindow>

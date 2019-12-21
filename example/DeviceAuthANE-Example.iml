@@ -17,13 +17,13 @@
         <compiler-options />
         <packaging-air-desktop />
         <packaging-android package-file-name="Main" />
-        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/src/Main-app-ios.xml" package-file-name="ShareExample">
+        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/src/Main-app-ios.xml" package-file-name="DeviceAuthExample">
           <files-to-package>
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/ios_dependencies/device" path-in-package="." />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Assets.car" path-in-package="Assets.car" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/system" path-in-package="." />
           </files-to-package>
-          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2020/dev/tua_rua_dev_2020.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2019/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
+          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2020/dev/tua_rua_dev_2020.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2020/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
         </packaging-ios>
       </configuration>
       <configuration name="iOS-Simulator" target-platform="Mobile" pure-as="true" main-class="Main" output-file="iOS-Simulator.swf" output-folder="$MODULE_DIR$/bin-release/simulator">
@@ -41,7 +41,7 @@
         <compiler-options />
         <packaging-air-desktop />
         <packaging-android package-file-name="iOS-Simulator" />
-        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/src/Main-app-ios.xml" package-file-name="iOS-Simulator">
+        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/src/Main-app-ios.xml" package-file-name="DeviceAuthExample-Simulator">
           <files-to-package>
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/ios_dependencies/simulator" path-in-package="." />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Assets.car" path-in-package="Assets.car" />

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		9018CF8E22107D0C004A317E /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9018CF8D22107D0C004A317E /* Messages.swift */; platformFilter = ios; };
 		9018CF912210AB90004A317E /* DeviceAuthEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9018CF902210AB90004A317E /* DeviceAuthEvent.swift */; platformFilter = ios; };
-		90382C3C2396CC6400A2F89D /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 90382C3B2396CC6400A2F89D /* SwiftyJSON */; };
+		90382C3C2396CC6400A2F89D /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 90382C3B2396CC6400A2F89D /* SwiftyJSON */; };
 		90E6EC0222135D390086C9E9 /* DeviceAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E6EC0122135D390086C9E9 /* DeviceAuthError.swift */; platformFilter = ios; };
 		CE05603F1FB25CE200D06976 /* FreSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE05603E1FB25CE200D06976 /* FreSwift.framework */; platformFilter = ios; };
 		CE0560401FB25CE200D06976 /* FreSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE05603E1FB25CE200D06976 /* FreSwift.framework */; platformFilter = ios; };

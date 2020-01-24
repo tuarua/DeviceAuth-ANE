@@ -68,7 +68,7 @@ public class SwiftController: NSObject {
             let stickyAuth = Bool(argv[3]),
             let messages = Messages(argv[5])
             else {
-                return FreArgError(message: "authenticate").getError(#file, #line, #column)
+                return FreArgError().getError()
         }
         authenticate(callbackId: callbackId, reason: reason, useErrorDialogs: useErrorDialogs,
                      stickyAuth: stickyAuth, messages: messages)

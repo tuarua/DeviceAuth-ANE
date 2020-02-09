@@ -26,7 +26,6 @@ public class DeviceAuthANEContext {
     internal static const NAME:String = "DeviceAuthANE";
     internal static const TRACE:String = "TRACE";
     private static var _context:ExtensionContext;
-    private static var _isDisposed:Boolean;
     private static var argsAsJSON:Object;
     public static var callbacks:Dictionary = new Dictionary();
     private static const SUCCESS:String = "DeviceAuthEvent.Success";
@@ -40,7 +39,6 @@ public class DeviceAuthANEContext {
             try {
                 _context = ExtensionContext.createExtensionContext("com.tuarua." + NAME, null);
                 _context.addEventListener(StatusEvent.STATUS, gotEvent);
-                _isDisposed = false;
             } catch (e:Error) {
                 trace("[" + NAME + "] ANE not loaded properly.  Future calls will fail.");
             }
@@ -94,16 +92,10 @@ public class DeviceAuthANEContext {
 
     public static function dispose():void {
         if (_context == null) return;
-        _isDisposed = true;
         trace("[" + NAME + "] Unloading ANE...");
         _context.removeEventListener(StatusEvent.STATUS, gotEvent);
         _context.dispose();
         _context = null;
     }
-
-    public static function get isDisposed():Boolean {
-        return _isDisposed;
-    }
-
 }
 }

@@ -2,7 +2,7 @@
 - AND: Updated to FreKotlin 1.9.5
 - AND: Updated Support to Jetpack 1.0.0
 - AND: Updated Gson to 2.8.6
-- iOS: Updated to FreSwift 4.2.0
+- iOS: Updated to FreSwift 4.3.0
 
 ### 1.2.0
 - AND: Updated to FreKotlin 1.8.0

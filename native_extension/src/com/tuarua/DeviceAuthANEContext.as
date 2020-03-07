@@ -26,10 +26,8 @@ public class DeviceAuthANEContext {
     internal static const NAME:String = "DeviceAuthANE";
     internal static const TRACE:String = "TRACE";
     private static var _context:ExtensionContext;
-    private static var _isDisposed:Boolean;
     private static var argsAsJSON:Object;
-    public static var closures:Dictionary = new Dictionary();
-    public static var closureCallers:Dictionary = new Dictionary();
+    public static var callbacks:Dictionary = new Dictionary();
     private static const SUCCESS:String = "DeviceAuthEvent.Success";
     private static const FAIL:String = "DeviceAuthEvent.Fail";
 
@@ -41,7 +39,6 @@ public class DeviceAuthANEContext {
             try {
                 _context = ExtensionContext.createExtensionContext("com.tuarua." + NAME, null);
                 _context.addEventListener(StatusEvent.STATUS, gotEvent);
-                _isDisposed = false;
             } catch (e:Error) {
                 trace("[" + NAME + "] ANE not loaded properly.  Future calls will fail.");
             }
@@ -49,48 +46,43 @@ public class DeviceAuthANEContext {
         return _context;
     }
 
-    public static function createEventId(listener:Function, listenerCaller:Object = null):String {
-        var eventId:String;
+    public static function createCallback(listener:Function):String {
+        var id:String;
         if (listener != null) {
-            eventId = context.call("createGUID") as String;
-            closures[eventId] = listener;
-            if (listenerCaller) {
-                closureCallers[eventId] = listenerCaller;
-            }
+            id = context.call("createGUID") as String;
+            callbacks[id] = listener;
         }
-        return eventId;
+        return id;
     }
 
     private static function gotEvent(event:StatusEvent):void {
         var err:DeviceAuthError;
-        var closure:Function;
+        var callback:Function;
         switch (event.level) {
             case TRACE:
                 trace("[" + NAME + "]", event.code);
                 break;
             case SUCCESS:
-                // trace("gotEvent SUCCESS", event.code);
                 try {
                     argsAsJSON = JSON.parse(event.code);
-                    closure = closures[argsAsJSON.eventId];
-                    if (closure == null) return;
-                    closure.call(null, true, null);
-                    delete closures[argsAsJSON.eventId];
+                    callback = callbacks[argsAsJSON.callbackId];
+                    if (callback == null) return;
+                    callback.call(null, true, null);
+                    delete callbacks[argsAsJSON.callbackId];
                 } catch (e:Error) {
                     trace("parsing error", event.code, e.message);
                 }
                 break;
             case FAIL:
-                // trace("gotEvent FAIL", event.code);
                 try {
                     argsAsJSON = JSON.parse(event.code);
-                    closure = closures[argsAsJSON.eventId];
-                    if (closure == null) return;
+                    callback = callbacks[argsAsJSON.callbackId];
+                    if (callback == null) return;
                     if (argsAsJSON.hasOwnProperty("error") && argsAsJSON.error) {
                         err = new DeviceAuthError(argsAsJSON.error.message, argsAsJSON.error.id);
                     }
-                    closure.call(null, false, err);
-                    delete closures[argsAsJSON.eventId];
+                    callback.call(null, false, err);
+                    delete callbacks[argsAsJSON.callbackId];
                 } catch (e:Error) {
                     trace("parsing error", event.code, e.message);
                 }
@@ -100,20 +92,10 @@ public class DeviceAuthANEContext {
 
     public static function dispose():void {
         if (_context == null) return;
-        _isDisposed = true;
         trace("[" + NAME + "] Unloading ANE...");
         _context.removeEventListener(StatusEvent.STATUS, gotEvent);
         _context.dispose();
         _context = null;
     }
-
-    public static function get isDisposed():Boolean {
-        return _isDisposed;
-    }
-
-    private static function throwError(error:ANEError):void {
-        throw error;
-    }
-
 }
 }

@@ -15,22 +15,23 @@
  */
 
 import Foundation
+import SwiftyJSON
 
 class DeviceAuthEvent: NSObject {
     public static let success = "DeviceAuthEvent.Success"
     public static let fail = "DeviceAuthEvent.Fail"
-    var eventId: String?
+    var callbackId: String?
     var error: DeviceAuthError?
     
-    convenience init(eventId: String?, error: DeviceAuthError? = nil) {
+    convenience init(callbackId: String?, error: DeviceAuthError? = nil) {
         self.init()
-        self.eventId = eventId
+        self.callbackId = callbackId
         self.error = error
     }
     
     public func toJSONString() -> String {
         var props = [String: Any]()
-        props["eventId"] = eventId
+        props["callbackId"] = callbackId
         props["error"] = error?.toDictionary()
         return JSON(props).description
     }

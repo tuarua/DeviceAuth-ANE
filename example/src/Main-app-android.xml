@@ -3,11 +3,11 @@
     <id>com.tuarua.DeviceAuthANE.Example</id>
     <filename>Main</filename>
     <name>DeviceAuthANEExample</name>
-    <versionNumber>1.2.0</versionNumber>
+    <versionNumber>1.3.0</versionNumber>
     <extensions>
         <extensionID>com.tuarua.frekotlin</extensionID>
         <extensionID>com.google.code.gson.gson</extensionID>
-        <extensionID>com.android.support.support-v4</extensionID>
+        <extensionID>androidx.legacy.legacy-support-v4</extensionID>
         <extensionID>com.tuarua.DeviceAuthANE</extensionID>
     </extensions>
     <initialWindow>
@@ -33,6 +33,7 @@
         <manifestAdditions>
             <![CDATA[
             <manifest android:installLocation="auto">
+                <meta-data android:name="android.max_aspect" android:value="2.1" />
                 <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
                 <uses-permission android:name="android.permission.INTERNET"/>
                 <uses-permission android:name="android.permission.USE_FINGERPRINT"/>

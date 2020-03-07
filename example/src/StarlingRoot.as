@@ -1,6 +1,6 @@
 package {
 
-import com.tuarua.DeviceAuthANE;
+import com.tuarua.DeviceAuth;
 import com.tuarua.deviceAuth.BiometryType;
 import com.tuarua.deviceAuth.DeviceAuthError;
 
@@ -19,7 +19,7 @@ import views.SimpleButton;
 public class StarlingRoot extends Sprite {
     private var authenticateBtn:SimpleButton = new SimpleButton("Authenticate");
     private var statusLabel:TextField;
-    private var deviceAuth:DeviceAuthANE;
+    private var deviceAuth:DeviceAuth;
 
     public function StarlingRoot() {
         super();
@@ -28,8 +28,8 @@ public class StarlingRoot extends Sprite {
     }
 
     public function start():void {
-        deviceAuth = DeviceAuthANE.deviceAuth;
-        DeviceAuthANE.useErrorDialogs = true;
+        deviceAuth = DeviceAuth.shared();
+        DeviceAuth.useErrorDialogs = true;
         initMenu();
     }
 
@@ -90,7 +90,7 @@ public class StarlingRoot extends Sprite {
     }
 
     private function onExiting(event:Event):void {
-        DeviceAuthANE.dispose();
+        DeviceAuth.dispose();
     }
 
 }

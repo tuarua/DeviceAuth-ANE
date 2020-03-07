@@ -19,37 +19,32 @@ import com.tuarua.deviceAuth.AndroidMessages;
 import com.tuarua.deviceAuth.IosMessages;
 import com.tuarua.fre.ANEError;
 
-import flash.events.EventDispatcher;
-
-public class DeviceAuthANE extends EventDispatcher {
-    private var _isInited:Boolean;
-    private static var _deviceAuth:DeviceAuthANE;
+public class DeviceAuth {
+    private static var _shared:DeviceAuth;
     private static var _androidMessages:AndroidMessages = new AndroidMessages();
     private static var _iosMessages:IosMessages = new IosMessages();
     private static var _useErrorDialogs:Boolean = true;
     private static var _stickyAuth:Boolean = false;
 
-    public function DeviceAuthANE() {
-        if (_deviceAuth) {
-            throw new Error(DeviceAuthANEContext.NAME + " is a singleton, use .deviceAuth");
+    public function DeviceAuth() {
+        if (_shared) {
+            throw new Error(DeviceAuthANEContext.NAME + " is a singleton, use .shared()");
         }
         if (DeviceAuthANEContext.context) {
             var ret:* = DeviceAuthANEContext.context.call("init");
             if (ret is ANEError) throw ret as ANEError;
-            _isInited = ret as Boolean;
         }
-        _deviceAuth = this;
+        _shared = this;
     }
 
-    public static function get deviceAuth():DeviceAuthANE {
-        if (_deviceAuth == null) {
-            new DeviceAuthANE();
+    public static function shared():DeviceAuth {
+        if (_shared == null) {
+            new DeviceAuth();
         }
-        return _deviceAuth;
+        return _shared;
     }
 
     public function get biometryType():int {
-        if (!safetyCheck()) return 0;
         var ret:* = DeviceAuthANEContext.context.call("getBiometryType");
         if (ret is ANEError) throw ret as ANEError;
         return ret as int;
@@ -59,8 +54,7 @@ public class DeviceAuthANE extends EventDispatcher {
      * for authentication. This is typically along the lines of: 'Please scan
      * your finger to access MyApp.'*/
     public function authenticate(reason:String, listener:Function):void {
-        if (!safetyCheck()) return;
-        DeviceAuthANEContext.context.call("authenticate", DeviceAuthANEContext.createEventId(listener),
+        DeviceAuthANEContext.context.call("authenticate", DeviceAuthANEContext.createCallback(listener),
                 reason, _useErrorDialogs, _stickyAuth, _androidMessages, _iosMessages);
     }
 
@@ -90,20 +84,6 @@ public class DeviceAuthANE extends EventDispatcher {
      * do something else. */
     public static function set stickyAuth(value:Boolean):void {
         _stickyAuth = value;
-    }
-
-    /** @return whether we have inited */
-    public function get isInited():Boolean {
-        return _isInited;
-    }
-
-    /** @private */
-    private function safetyCheck():Boolean {
-        if (!_isInited || DeviceAuthANEContext.isDisposed) {
-            trace("You need to init first");
-            return false;
-        }
-        return true;
     }
 
     public static function dispose():void {

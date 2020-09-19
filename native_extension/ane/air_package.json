@@ -8,7 +8,7 @@
     "com.tuarua.frekotlin": "1.40.0",
     "com.google.code.gson.gson": "2.8.6",
     "androidx.legacy.legacy-support-v4": "1.0.0",
-    "com.tuarua.FreSwift": "4.5.0",
+    "com.tuarua.iOS.FreSwift": "4.5.0",
     "com.tuarua.DeviceAuthANE.IosDependencies": "1.5.0"
   }
 }

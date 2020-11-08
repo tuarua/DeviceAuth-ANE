@@ -133,10 +133,10 @@ class AuthenticationHelper internal constructor(
 
     override fun onAuthenticationSucceeded(result: FingerprintManagerCompat.AuthenticationResult?) {
         updateFingerprintDialog(Companion.DialogState.SUCCESS, messages.fingerprintSuccess)
-        Handler(Looper.myLooper())
-                .postDelayed(
-                        { stop(true) },
-                        DISMISS_AFTER_MS)
+        val looper = Looper.myLooper() ?: return
+        Handler(looper).postDelayed(
+                { stop(true) },
+                DISMISS_AFTER_MS)
     }
 
     private fun updateFingerprintDialog(state: DialogState, message: String?) {

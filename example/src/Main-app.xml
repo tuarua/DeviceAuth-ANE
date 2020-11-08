@@ -30,6 +30,8 @@
   <iPhone>
     <requestedDisplayResolution>high</requestedDisplayResolution>
     <InfoAdditions><![CDATA[
+	<key>MinimumOSVersion</key>
+	<string>9.0</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Description for using face id?</string>
 	<key>UIDeviceFamily</key>

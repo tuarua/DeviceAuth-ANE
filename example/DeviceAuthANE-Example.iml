@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="Android-Device">
+  <component name="FlexBuildConfigurationManager" active="iOS-Device">
     <configurations>
       <configuration name="iOS-Device" target-platform="Mobile" pure-as="true" main-class="Main" output-file="DeviceAuthExample.swf" output-folder="$MODULE_DIR$/bin-release/device">
         <dependencies target-player="28.0">
@@ -23,7 +23,7 @@
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Assets.car" path-in-package="Assets.car" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/system" path-in-package="." />
           </files-to-package>
-          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2020/dev/tua_rua_dev_2020.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2020/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
+          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2021/iOS/dev/tua_rua_dev_2021.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2021/iOS/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
         </packaging-ios>
       </configuration>
       <configuration name="iOS-Simulator" target-platform="Mobile" pure-as="true" main-class="Main" output-file="iOS-Simulator.swf" output-folder="$MODULE_DIR$/bin-release/simulator">
@@ -47,7 +47,7 @@
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Assets.car" path-in-package="Assets.car" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/system" path-in-package="." />
           </files-to-package>
-          <AirSigningOptions sdk="/Applications/Xcode10.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.1.sdk" keystore-path="$USER_HOME$/Documents/appleCertsProv/2020/dev/tua_rua_dev_2020.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2019/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
+          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2021/iOS/dev/tua_rua_dev_2021.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2021/iOS/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
         </packaging-ios>
       </configuration>
       <configuration name="Android-Device" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Android-Device.swf" output-folder="$MODULE_DIR$/bin-release/device">
@@ -90,7 +90,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="ShareANE" level="project" />
     <orderEntry type="library" exported="" name="FiraSansSemiBold" level="project" />
-    <orderEntry type="library" exported="" name="starling" level="project" />
     <orderEntry type="library" exported="" name="com.android.support.support-v4-27.1.0" level="project" />
     <orderEntry type="library" exported="" name="com.tuarua.frekotlin" level="project" />
     <orderEntry type="library" exported="" name="com.google.code.gson.gson-2.8.4" level="project" />
@@ -102,6 +101,7 @@
     <orderEntry type="library" exported="" name="com.tuarua.frekotlin-1.9.5" level="project" />
     <orderEntry type="library" exported="" name="com.tuarua.frekotlin-1.10.0" level="project" />
     <orderEntry type="library" exported="" name="android_dependencies" level="project" />
+    <orderEntry type="library" exported="" name="starling" level="project" />
     <orderEntry type="library" exported="" name="extensions" level="project" />
   </component>
 </module>

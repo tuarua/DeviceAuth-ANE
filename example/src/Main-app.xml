@@ -3,7 +3,7 @@
   <id>com.tuarua.DeviceAuthANE.Example</id>
   <filename>Main</filename>
   <name>DeviceAuthANEExample</name>
-  <versionNumber>1.6.0</versionNumber>
+  <versionNumber>1.7.0</versionNumber>
   <extensions>
     <extensionID>com.tuarua.DeviceAuthANE</extensionID>
     <extensionID>com.tuarua.frekotlin</extensionID>

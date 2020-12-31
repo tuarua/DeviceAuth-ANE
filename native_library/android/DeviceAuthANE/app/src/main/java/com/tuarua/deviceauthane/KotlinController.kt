@@ -37,7 +37,7 @@ class KotlinController : FreKotlinMainController {
         val pi = packageInfo ?: return false
         permissionsNeeded.forEach { p ->
             if (p !in pi.requestedPermissions) {
-                trace("Please add $p to uses-permission list in your AIR manifest")
+                warning("Please add $p to uses-permission list in your AIR manifest")
                 return false
             }
         }
@@ -120,7 +120,7 @@ class KotlinController : FreKotlinMainController {
         return null
     }
 
-    override val TAG: String?
+    override val TAG: String
         get() = this::class.java.simpleName
     private var _context: FREContext? = null
     override var context: FREContext?
